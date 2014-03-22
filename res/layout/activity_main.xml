@@ -38,11 +38,12 @@
         android:layout_height="200dip"
         android:background="#ccc" >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Mapa!!" />
+        <com.google.android.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:apiKey="@string/api_key"
+            android:clickable="true" />
 
         <Button
             android:layout_width="wrap_content"
