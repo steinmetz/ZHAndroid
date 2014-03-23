@@ -1,6 +1,7 @@
 package com.example.zhagenda.listview;
 
 import com.example.zhagenda.R;
+import com.example.zhagenda.beans.Event;
 
 import android.app.Activity;
 import android.content.Context;
@@ -35,8 +36,8 @@ public class ArrayAdapterEvent extends ArrayAdapter<Event> {
 		TextView tvName = (TextView)convertView.findViewById(R.id.eventName);
 		TextView tvEndereco = (TextView)convertView.findViewById(R.id.eventEndereco);
 
-		tvName.setText(event.name);
-		tvEndereco.setText(event.endereco);
+		tvName.setText(event.title);
+		tvEndereco.setText(event.address);
 		
 		return convertView;
 	}

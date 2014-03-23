@@ -36,7 +36,7 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category>  {
 		TextView tvSpotlight = (TextView)convertView.findViewById(R.id.categorySpotlight);
 
 		tvName.setText(category.name);
-		tvSpotlight.setText(category.events[0].name);
+		tvSpotlight.setText(category.events[0].title);
 		
 		return convertView;
 	}

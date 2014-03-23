@@ -10,7 +10,10 @@ import android.location.Geocoder;
 import android.util.Log;
 
 import android.graphics.RectF;
+
+import com.example.zhagenda.ActivityMap;
 import com.example.zhagenda.EventActivity;
+import com.example.zhagenda.MainActivity;
 import com.example.zhagenda.beans.Event;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
@@ -36,7 +39,7 @@ public class MyOverlay extends Overlay {
 	
 	@Override
 	public boolean onTap(GeoPoint geoPoint, MapView mapView) {
-		int tamanho_point = 30;
+		int tamanho_point = 40;
 		point = mapView.getProjection().toPixels(event.geoPoint, null);
 		rectf = new RectF(point.x - tamanho_point, point.y - tamanho_point,
 				point.x + tamanho_point, point.y + tamanho_point);
@@ -47,6 +50,8 @@ public class MyOverlay extends Overlay {
 			// i.putExtra("event", event);
 			ctx.startActivity(i);
 					
+		}else {			
+			((MainActivity)ctx).toolgleListView();
 		}
 		return super.onTap(geoPoint, mapView);
 	}

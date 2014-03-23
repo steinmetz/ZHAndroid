@@ -35,16 +35,16 @@
     <RelativeLayout
         android:id="@+id/mapa"
         android:layout_width="match_parent"
-        android:layout_height="200dip"
+        android:layout_height="300px"
         android:background="#ccc" >
 
         <com.google.android.maps.MapView
             android:id="@+id/map"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:apiKey="@string/api_key"
+            android:apiKey="@string/api_key"            
             android:clickable="true" />
-
+	
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

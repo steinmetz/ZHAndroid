@@ -27,7 +27,8 @@ public class ActivityMap extends MapActivity {
 
 	public MapController mapController;
 	public List<Overlay> mapOverlays;
-
+	MyLocationOverlay myloc;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,14 +56,19 @@ public class ActivityMap extends MapActivity {
 		mapController.setZoom(17);
 		map.setBuiltInZoomControls(false);
 		mapController.setCenter(eventos.get(0).geoPoint);
-		MyLocationOverlay myloc = new MyLocationOverlay(this, map);
+		myloc = new MyLocationOverlay(this, map);
 		myloc.enableMyLocation();
 		myloc.disableCompass();
 		popuparMapa();
 		
-		
-		
 	} 	
+	@Override
+	protected void onResume() {
+		 
+		super.onResume();
+		myloc.enableMyLocation();
+
+	}
 
 	public void popuparMapa() {
 		
