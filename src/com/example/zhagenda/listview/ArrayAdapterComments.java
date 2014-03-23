@@ -36,7 +36,7 @@ public class ArrayAdapterComments extends ArrayAdapter<Comments> {
 		TextView tvName = (TextView)convertView.findViewById(R.id.commentName);
 		TextView tvComment = (TextView)convertView.findViewById(R.id.comment);
 
-		tvName.setText(comment.name);
+		//tvName.setText(comment.name);
 		tvComment.setText(comment.comment);
 		
 		return convertView;

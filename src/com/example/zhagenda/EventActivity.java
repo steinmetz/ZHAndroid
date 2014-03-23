@@ -52,13 +52,15 @@ public class EventActivity extends Activity {
 		listViewComments = (LinearLayout) findViewById(R.id.listViewComments);
 		facebookContainer = (LinearLayout) findViewById(R.id.facebookContainer);
 
+		
+		
 		fillEvent();
 	}
 
 	public void fillEvent() {
 		eventTxtTitle.setText(event.title);
 		eventTxtDescription.loadData(event.description, "text/html", null);
-
+		
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		Comments[] comments = new Comments[20];
@@ -70,8 +72,10 @@ public class EventActivity extends Activity {
 					.findViewById(R.id.commentName);
 			TextView tvComment = (TextView) commentView
 					.findViewById(R.id.comment);
-
-			tvName.setText(comments[i].name);
+			ImageView imageView = (ImageView) commentView
+					.findViewById(R.id.eventIcon);
+			
+			//tvName.setText(comments[i].);
 			tvComment.setText(comments[i].comment);
 			listViewComments.addView(commentView);
 		}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
          <!-- produção -->
-        <string name="api_key">04BOtR1B8RxriWDUqOQGNxqn2I5gHw1IoUJOWxA</string>
+        <string name="api_key2">04BOtR1B8RxriWDUqOQGNxqn2I5gHw1IoUJOWxA</string>
         <!-- debug -->
-        <string name="api_key2">04BOtR1B8RxqyryDpMJWztJoEnqBtt4DxByUqLA</string>	
+        <string name="api_key">04BOtR1B8RxqyryDpMJWztJoEnqBtt4DxByUqLA</string>	
 
 </resources>
  

@@ -3,11 +3,13 @@ package com.example.zhagenda;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.zhagenda.beans.Comments;
 import com.example.zhagenda.beans.Event;
 import com.example.zhagenda.listview.ArrayAdapterCategory;
 import com.example.zhagenda.listview.ArrayAdapterEvent;
 import com.example.zhagenda.listview.Category;
 import com.example.zhagenda.overlay.MyOverlay;
+import com.example.zhagenda.sqlite.ComentarioRepositorio;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -20,7 +22,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -100,7 +104,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER,
 				milisegundos, metros, this);
 
-		popuparMapa();
+		popuparMapa(); 	
 	}
 
 	public void popuparMapa() {
