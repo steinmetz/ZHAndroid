@@ -3,6 +3,7 @@ package com.example.zhagenda;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,6 +33,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -41,7 +43,7 @@ import android.widget.Toast;
 public class MainActivity extends MapActivity implements LocationListener {
 
 	RelativeLayout dataLayout;
-	LinearLayout layoutEvent;
+	LinearLayout layoutEvent, layoutData;
 	ListView listViewEvents, listViewCategories;
 	TextView currentCategoryTV, diaMes, diaSemana;
 	RelativeLayout mapa;
@@ -55,6 +57,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 
 	public MapController mapController;
 	public List<Overlay> mapOverlays;
+	ImageView dirSeta, esqSeta;
 
 	private MapView map;
 
@@ -63,7 +66,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 	Integer currentCategory = null;
 	ArrayAdapterCategory arrayAdapterCategories;
 	
-	public Calendar data;
+	public Calendar data =  new GregorianCalendar(2014, Calendar.MARCH, 22);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +76,32 @@ public class MainActivity extends MapActivity implements LocationListener {
 		listViewCategories = (ListView) findViewById(R.id.listViewCategorias);
 		listViewEvents = (ListView) findViewById(R.id.listViewEvents);
 		layoutEvent = (LinearLayout) findViewById(R.id.layoutEvent);
+		layoutData = (LinearLayout) findViewById(R.id.data1);
 		mapa = (RelativeLayout) findViewById(R.id.mapa);
 		currentCategoryTV = (TextView) findViewById(R.id.currentCategory);
+		esqSeta = (ImageView) findViewById(R.id.esqSeta);
+		dirSeta = (ImageView) findViewById(R.id.dirSeta);
 		diaMes = (TextView) findViewById(R.id.diaMes);
 		diaSemana = (TextView) findViewById(R.id.diaSemanaMes);
 		Typeface face = Typeface.createFromAsset(getAssets(),"fonts/msjh.ttf");
 		diaMes.setTypeface(face);
 		diaSemana.setTypeface(face);
-
+		esqSeta.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				avancaData(-1);
+				
+			}
+		});
+		dirSeta.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				avancaData(1);
+				
+			}
+		});
 		layoutEvent.setTranslationX(listViewCategories.getWidth());
 		dataLayoutH = dataLayout.getLayoutParams().height;
 
@@ -162,15 +183,15 @@ public class MainActivity extends MapActivity implements LocationListener {
 
 		this.eventos = new ArrayList<Event>();
 		
-		this.eventos.add(new Event(2,new Date(2014, 03, 21),"Eliane Brum","19h","Livraria Cultura do Bourbon Country - Túlio de Rose, 80",-30.023695,-51.155904, "Autógrafos", "Autógrafos do livro A Menina Quebrada e Outras Colunas, de Eliane Brum. Entrada franca. ", R.drawable.elianebrum, 1, 1));
-		this.eventos.add(new Event(3,new Date(2014, 03, 21),"Fabricio Carpinejar","16h","Livraria Saraiva do Praia de Belas - Praia de Belas, 1181",-30.050403,-51.228183, "Autógrafos", "Lançamento do livro 'Espero Alguém', de crônicas publicadas em ZH. Entrada franca.", R.drawable.carpinejar, 1, 1));
-		this.eventos.add(new Event(4,new Date(2014, 03, 21),"Claudia Tajes","17h","Livraria FNAC do BarraShoppingSul - Diário de Notícias, 300",-30.084524,-51.245624, "Autógrafos", "Claudia Tajes lança seu novo livro: 'Por Isso sou Vingativa'. Entrada franca.", R.drawable.tajes, 1, 1));
-		this.eventos.add(new Event(5,new Date(2014, 03, 21),"Cirque du Soleil","19h30min","BarraShoppingSul - Diário de Notícias, 300",-30.084524,-51.245624, "Exposições", "Corteo, espetáculo do Cirque du Soleil com palhaços, trapezistas e números de malabarismo. Ingressos: R$ 150.", R.drawable.cirque, 1, 1));
-		this.eventos.add(new Event(6,new Date(2014, 03, 21),"Galinha Pintadinha","17h","Teatro do CIEE - Dom Pedro II, 861",-30.014075,-51.18728, "Infantil", "Espetáculo oficial da Galinha Pintadinha, com bonecos e fantoches, para crianças de zero a três anos. Ingressos: R$ 10 (crianças) e R$ 20 (adultos).", R.drawable.galinhapintadinha, 1, 1));
-		this.eventos.add(new Event(7,new Date(2014, 03, 21),"Balé Vera Bublitz","20h30min","Teatro da Amrigs - Ipiranga, 5311",-30.056753,-51.187127, "Dança", "Apresentação de balé clássico da escola Vera Bublitz. Ingressos à venda na escola por R$ 30.", R.drawable.bublitz, 1, 1));
-		this.eventos.add(new Event(8,new Date(2014, 03, 21),"Piquenique Festivo","Das 18h às 23h","Redenção",-30.035328,-51.213459, "Eventos", "Piquenique coletivo e gratuito para a comunidade da Capital. Leve sua comida e sua bebida. ", R.drawable.picnicccc, 1, 1));
-		this.eventos.add(new Event(9,new Date(2014, 03, 21),"Claus e Vanessa","21h","NY 72 - Nova York, 72",-30.020689,-51.19537, "Música", "Show de pop rock com a dupla Claus e Vanessa. Ingressos: R$ 10.", R.drawable.elianebrum, 1, 1));
-		this.eventos.add(new Event(10,new Date(2014, 03, 21),"Incêndios","20h","Theatro São Pedro - Marechal Deodoro, s/n",-30.028975,-51.230478, "Teatro", "Espetáculo conta a história da árabe Nawal, cuja vida é atravessada por décadas de uma guerra civil que parece nunca ter fim. Ingressos: R$ 40 (galeria). ", R.drawable.klausevanessa, 1, 1));
+		this.eventos.add(new Event(2,new Date(2014, 03, 23),"Eliane Brum","19h","Livraria Cultura do Bourbon Country - Túlio de Rose, 80",-30.023695,-51.155904, "Autógrafos", "Autógrafos do livro A Menina Quebrada e Outras Colunas, de Eliane Brum. Entrada franca. ", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(3,new Date(2014, 03, 23),"Fabricio Carpinejar","16h","Livraria Saraiva do Praia de Belas - Praia de Belas, 1181",-30.050403,-51.228183, "Autógrafos", "Lançamento do livro 'Espero Alguém', de crônicas publicadas em ZH. Entrada franca.", R.drawable.carpinejar, 1, 1));
+		this.eventos.add(new Event(4,new Date(2014, 03, 23),"Claudia Tajes","17h","Livraria FNAC do BarraShoppingSul - Diário de Notícias, 300",-30.084524,-51.245624, "Autógrafos", "Claudia Tajes lança seu novo livro: 'Por Isso sou Vingativa'. Entrada franca.", R.drawable.tajes, 1, 1));
+		this.eventos.add(new Event(5,new Date(2014, 03, 23),"Cirque du Soleil","19h30min","BarraShoppingSul - Diário de Notícias, 300",-30.084524,-51.245624, "Exposições", "Corteo, espetáculo do Cirque du Soleil com palhaços, trapezistas e números de malabarismo. Ingressos: R$ 150.", R.drawable.cirque, 1, 1));
+		this.eventos.add(new Event(6,new Date(2014, 03, 23),"Galinha Pintadinha","17h","Teatro do CIEE - Dom Pedro II, 861",-30.014075,-51.18728, "Infantil", "Espetáculo oficial da Galinha Pintadinha, com bonecos e fantoches, para crianças de zero a três anos. Ingressos: R$ 10 (crianças) e R$ 20 (adultos).", R.drawable.galinhapintadinha, 1, 1));
+		this.eventos.add(new Event(7,new Date(2014, 03, 23),"Balé Vera Bublitz","20h30min","Teatro da Amrigs - Ipiranga, 5311",-30.056753,-51.187127, "Dança", "Apresentação de balé clássico da escola Vera Bublitz. Ingressos à venda na escola por R$ 30.", R.drawable.bublitz, 1, 1));
+		this.eventos.add(new Event(8,new Date(2014, 03, 23),"Piquenique Festivo","Das 18h às 23h","Redenção",-30.035328,-51.213459, "Eventos", "Piquenique coletivo e gratuito para a comunidade da Capital. Leve sua comida e sua bebida. ", R.drawable.picnicccc, 1, 1));
+		this.eventos.add(new Event(9,new Date(2014, 03, 23),"Claus e Vanessa","21h","NY 72 - Nova York, 72",-30.020689,-51.19537, "Música", "Show de pop rock com a dupla Claus e Vanessa. Ingressos: R$ 10.", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(10,new Date(2014, 03, 23),"Incêndios","20h","Theatro São Pedro - Marechal Deodoro, s/n",-30.028975,-51.230478, "Teatro", "Espetáculo conta a história da árabe Nawal, cuja vida é atravessada por décadas de uma guerra civil que parece nunca ter fim. Ingressos: R$ 40 (galeria). ", R.drawable.klausevanessa, 1, 1));
 //		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
 
 		mapController.setCenter(this.eventos.get(0).getGeoPoint());
@@ -376,4 +397,16 @@ public class MainActivity extends MapActivity implements LocationListener {
 			mHandler.postDelayed(r, 5000);
 		}
 	};
+	
+	public void  avancaData(int sentido)
+	{
+		data.add(Calendar.DAY_OF_MONTH, sentido);	
+		String dias[] = {"Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"};
+		String meses[] = {"jan","fev","mar","abr","mai","jun","jul","ago","set", "out","nov","dez"};
+		int week = data.get(Calendar.DAY_OF_WEEK)-1;
+		int month = data.get(Calendar.MONTH);
+		diaMes.setText(String.valueOf(data.get(Calendar.DAY_OF_MONTH)) + " - "+ meses[month]);
+		diaSemana.setText(dias[week]);
+	}
 }
+

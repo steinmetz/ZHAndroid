@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ArrayAdapterEvent extends ArrayAdapter<Event> {
@@ -42,9 +43,12 @@ public class ArrayAdapterEvent extends ArrayAdapter<Event> {
 
 		TextView tvName = (TextView)convertView.findViewById(R.id.eventName);
 		TextView tvEndereco = (TextView)convertView.findViewById(R.id.eventEndereco);
+		ImageView imageIcon = (ImageView)convertView.findViewById(R.id.eventIcon);
 
 		tvName.setText(event.title);
 		tvEndereco.setText(event.address);
+		if (event.imageRes != -1)
+			imageIcon.setImageResource(event.imageRes);
 		
 		return convertView;
 	}
