@@ -13,6 +13,7 @@ import android.graphics.RectF;
 
 import com.example.zhagenda.EventActivity;
 import com.example.zhagenda.MainActivity;
+import com.example.zhagenda.R;
 import com.example.zhagenda.beans.Event;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
@@ -61,7 +62,7 @@ public class MyOverlay extends Overlay {
 			mapview.getProjection().toPixels(event.getGeoPoint(), point);
 
 			Bitmap markerBitmap = BitmapFactory.decodeResource(ctx
-					.getApplicationContext().getResources(), event.imageRes);
+					.getApplicationContext().getResources(), R.drawable.marker);
 			canvas.drawBitmap(markerBitmap, point.x,
 					point.y - markerBitmap.getHeight(), null);
 

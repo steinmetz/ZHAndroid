@@ -19,6 +19,7 @@ public class Event implements Serializable{
 	public int _id;
 	public Date date;
 	public String title;
+	public String horario;
 	public String address;
 	public String telephone;
 	public String category;
@@ -39,19 +40,19 @@ public class Event implements Serializable{
 		return new GeoPoint((int)(latitude*1E6),(int)(longitude*1E6)  );
 	}
 	
-	public Event( Date date, String title, String address,
-			String telephone, String category, String description,
-			Bitmap photo, int order, double latitude, double longitude,
-			int destaque, int imageRes) {
+	public Event( Date date, String title, String horario, String address,
+			 double latitude, double longitude, String category, String description
+			 , int imageRes,
+			int order,
+			int destaque) {
 		super();
 		this._id = _id;
 		this.date = date;
 		this.title = title;
+		this.horario = horario;
 		this.address = address;
-		this.telephone = telephone;
 		this.category = category;
 		this.description = description;
-		this.photo = photo;
 		this.order = order;
 		this.latitude = latitude;
 		this.longitude = longitude;

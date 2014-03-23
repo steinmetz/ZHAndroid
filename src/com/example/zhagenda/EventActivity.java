@@ -33,7 +33,7 @@ public class EventActivity extends Activity {
 	private TextView eventTxtTitle;
 
 	private Event event;
-	private TextView eventDesc, eventHour;
+	private TextView eventDesc, eventHour, nroFriends;
 	private EditText commentText;
 	private ImageView eventImage, sendComment;
 	private LinearLayout listViewComments;
@@ -55,6 +55,7 @@ public class EventActivity extends Activity {
 		facebookContainer = (LinearLayout) findViewById(R.id.facebookContainer);
 		sendComment = (ImageView) findViewById(R.id.sendComment);
 		commentText = (EditText) findViewById(R.id.commentText);
+		nroFriends = (TextView) findViewById(R.id.nroFriends);
 
 		sendComment.setOnClickListener(l);
 

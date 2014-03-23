@@ -1,6 +1,8 @@
 package com.example.zhagenda;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +26,7 @@ import android.os.Handler;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -37,9 +40,10 @@ import android.widget.Toast;
 
 public class MainActivity extends MapActivity implements LocationListener {
 
-	LinearLayout dataLayout, layoutEvent;
+	RelativeLayout dataLayout;
+	LinearLayout layoutEvent;
 	ListView listViewEvents, listViewCategories;
-	TextView currentCategoryTV;
+	TextView currentCategoryTV, diaMes, diaSemana;
 	RelativeLayout mapa;
 	int dataLayoutH;
 
@@ -58,17 +62,24 @@ public class MainActivity extends MapActivity implements LocationListener {
 	Category[] categories = new Category[8];
 	Integer currentCategory = null;
 	ArrayAdapterCategory arrayAdapterCategories;
+	
+	public Calendar data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		dataLayout = (LinearLayout) findViewById(R.id.data);
+		dataLayout = (RelativeLayout) findViewById(R.id.data);
 		listViewCategories = (ListView) findViewById(R.id.listViewCategorias);
 		listViewEvents = (ListView) findViewById(R.id.listViewEvents);
 		layoutEvent = (LinearLayout) findViewById(R.id.layoutEvent);
 		mapa = (RelativeLayout) findViewById(R.id.mapa);
 		currentCategoryTV = (TextView) findViewById(R.id.currentCategory);
+		diaMes = (TextView) findViewById(R.id.diaMes);
+		diaSemana = (TextView) findViewById(R.id.diaSemanaMes);
+		Typeface face = Typeface.createFromAsset(getAssets(),"fonts/msjh.ttf");
+		diaMes.setTypeface(face);
+		diaSemana.setTypeface(face);
 
 		layoutEvent.setTranslationX(listViewCategories.getWidth());
 		populateListView();
@@ -86,9 +97,9 @@ public class MainActivity extends MapActivity implements LocationListener {
 
 		// apagar
 		eventos = new ArrayList<Event>();
-		eventos.add(new Event(null, "Titulo", "Endereço", "fone", "categoria",
-				"descricao", null, 1,-29.717171,-53.717171,1,
-				R.drawable.marker));
+//		eventos.add(new Event(null, "Titulo", "Endereço", "fone", "categoria",
+//				"descricao", null, 1, -29.717171, -53.717171, 1,
+//				R.drawable.marker));
 
 		map = (MapView) findViewById(R.id.map);
 		mapController = map.getController();
@@ -108,6 +119,12 @@ public class MainActivity extends MapActivity implements LocationListener {
 				milisegundos, metros, this);
 
 		popuparMapa(eventos);
+	}
+	public void proximoDia(View v){
+		
+	}
+	public void diaAnterior(View v){
+		
 	}
 
 	public void popuparMapa(ArrayList<Event> eventos) {
@@ -150,16 +167,24 @@ public class MainActivity extends MapActivity implements LocationListener {
 		categories[6] = cinema;
 		categories[7] = teatro;
 
+		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Livraria Cultura do Bourbon Country - Túlio de Rose, 80",-30.023695,-51.155904, "Autógrafos", "Autógrafos do livro A Menina Quebrada e Outras Colunas, de Eliane Brum. Entrada franca. ", R.drawable.elianebrum, 1, 1));
+		categories[0].events.add(new Event(new Date(2014, 03, 21),"Fabricio Carpinejar","16h","Livraria Saraiva do Praia de Belas - Praia de Belas, 1181",-30.050403,-51.228183, "Autógrafos", "Lançamento do livro 'Espero Alguém', de crônicas publicadas em ZH. Entrada franca.", R.drawable.elianebrum, 1, 1));
+		categories[0].events.add(new Event(new Date(2014, 03, 21),"Claudia Tajes","17h","Livraria FNAC do BarraShoppingSul - Diário de Notícias, 300",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
+		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
+		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
+		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
+		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
+		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
 		for (int j = 0; j < 8; j++) {
 			for (int i = 0; i < 20; i++) {
-				categories[j].events.add(new Event(null, "Titulo " + i,
-						"Endereço", "fone", "categoria", "Descricao", null, 1,
-						-29.717171,-53.717171,1, R.drawable.marker));
+//				categories[j].events.add(new Event(null, "Titulo " + i,
+//						"Endereço", "fone", "categoria", "Descricao", null, 1,
+//						-29.717171, -53.717171, 1, R.drawable.marker));
 			}
 		}
 
-		arrayAdapterCategories = new ArrayAdapterCategory(
-				this, R.layout.categorylistitem, categories);
+		arrayAdapterCategories = new ArrayAdapterCategory(this,
+				R.layout.categorylistitem, categories);
 		listViewCategories.setAdapter(arrayAdapterCategories);
 		listViewCategories.setOnItemClickListener(listenerCategories);
 
@@ -307,14 +332,16 @@ public class MainActivity extends MapActivity implements LocationListener {
 					tvSpotlightExtra
 							.setText(categories[i].events.get(index).title);
 					Event e = categories[i].events.get(index);
-					tvSpotlightExtra.animate().setDuration(1000).translationX(0);
-					tvSpotlight.animate().setDuration(1000).translationX(-size.x);
+					tvSpotlightExtra.animate().setDuration(1000)
+							.translationX(0);
+					tvSpotlight.animate().setDuration(1000)
+							.translationX(-size.x);
 				} else {
 					tvSpotlight.setTranslationX(size.x);
 					tvSpotlight.setText(categories[i].events.get(index).title);
 					tvSpotlight.animate().setDuration(1000).translationX(0);
-					tvSpotlightExtra.animate().setDuration(1000).translationX(
-							-size.x);
+					tvSpotlightExtra.animate().setDuration(1000)
+							.translationX(-size.x);
 				}
 
 			}

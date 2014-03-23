@@ -12,22 +12,15 @@
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:gravity="center_vertical"
-    	android:paddingRight="5dip"
+        android:paddingRight="5dip"
         android:src="@drawable/logoredondo" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/comment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-
-        <TextView
-            android:id="@+id/comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#888"
-            android:text="This is a shit!" />
-        
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="This is a shit!"
+        android:textColor="#888" />
 
 </LinearLayout>
