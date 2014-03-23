@@ -23,7 +23,7 @@ public class MyOverlay extends Overlay {
 
 	Geocoder geoCoder = null;
 	Bitmap bitmap;
-	static Event event;
+	Event event;
 	Context ctx;
 	Point point;
 	RectF rectf;
@@ -34,7 +34,6 @@ public class MyOverlay extends Overlay {
 		this.ctx = ctx;
 		point = new Point(0, 0);
 	}
-
 	
 	
 	@Override
