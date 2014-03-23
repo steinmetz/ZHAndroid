@@ -39,7 +39,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 
 	private LocationManager locMgr;
 	private int metros = 0;
-	private int milisegundos = 2000;
+	private int milisegundos = 1000;
 
 	private ArrayList<Event> eventos;
 
@@ -218,8 +218,8 @@ public class MainActivity extends MapActivity implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location arg0) {
-		mapController.animateTo(new GeoPoint((int) arg0.getLatitude(),
-				(int) arg0.getLongitude()));
+		mapController.animateTo(new GeoPoint((int) (arg0.getLatitude()*1E6),
+				(int) (arg0.getLongitude()*1E6))); 
 	}
 
 	@Override
