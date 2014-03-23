@@ -65,6 +65,8 @@ public class EventActivity extends Activity {
 	public void fillEvent() {
 		eventTxtTitle.setText(event.title);
 		eventDesc.setText(Html.fromHtml(event.description));
+		eventHour.setText(Html.fromHtml(event.horario));
+//		eventImage
 		
 		loadComments();
 

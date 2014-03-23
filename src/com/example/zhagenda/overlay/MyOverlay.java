@@ -47,7 +47,7 @@ public class MyOverlay extends Overlay {
 		if (rectf.contains(clique.x, clique.y)) {
 
 			Intent i = new Intent(ctx, EventActivity.class);
-			// i.putExtra("event", event);
+			i.putExtra("event", event);
 			ctx.startActivity(i);
 					
 		}else {			

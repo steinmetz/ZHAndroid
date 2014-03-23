@@ -59,7 +59,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 	private MapView map;
 
 	MyLocationOverlay myloc;
-	Category[] categories = new Category[8];
+	Category[] categories = new Category[7];
 	Integer currentCategory = null;
 	ArrayAdapterCategory arrayAdapterCategories;
 	
@@ -95,18 +95,12 @@ public class MainActivity extends MapActivity implements LocationListener {
 
 		Intent i = getIntent();
 
-		// apagar
-		eventos = new ArrayList<Event>();
-//		eventos.add(new Event(null, "Titulo", "Endereço", "fone", "categoria",
-//				"descricao", null, 1, -29.717171, -53.717171, 1,
-//				R.drawable.marker));
 
 		map = (MapView) findViewById(R.id.map);
 		mapController = map.getController();
 		mapOverlays = map.getOverlays();
 		map.setSatellite(false);
 		mapController.setZoom(17);
-		mapController.setCenter(eventos.get(0).getGeoPoint());
 
 		myloc = new MyLocationOverlay(this, map);
 		myloc.enableMyLocation();
@@ -118,7 +112,6 @@ public class MainActivity extends MapActivity implements LocationListener {
 		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER,
 				milisegundos, metros, this);
 
-		popuparMapa(eventos);
 	}
 	public void proximoDia(View v){
 		
@@ -164,22 +157,54 @@ public class MainActivity extends MapActivity implements LocationListener {
 		categories[3] = danca;
 		categories[4] = eventos;
 		categories[5] = musica;
-		categories[6] = cinema;
-		categories[7] = teatro;
+		categories[6] = teatro;
+//		categories[7] = cinema;
 
-		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Livraria Cultura do Bourbon Country - Túlio de Rose, 80",-30.023695,-51.155904, "Autógrafos", "Autógrafos do livro A Menina Quebrada e Outras Colunas, de Eliane Brum. Entrada franca. ", R.drawable.elianebrum, 1, 1));
-		categories[0].events.add(new Event(new Date(2014, 03, 21),"Fabricio Carpinejar","16h","Livraria Saraiva do Praia de Belas - Praia de Belas, 1181",-30.050403,-51.228183, "Autógrafos", "Lançamento do livro 'Espero Alguém', de crônicas publicadas em ZH. Entrada franca.", R.drawable.elianebrum, 1, 1));
-		categories[0].events.add(new Event(new Date(2014, 03, 21),"Claudia Tajes","17h","Livraria FNAC do BarraShoppingSul - Diário de Notícias, 300",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
-		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
-		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
-		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
-		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
-		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
-		for (int j = 0; j < 8; j++) {
-			for (int i = 0; i < 20; i++) {
-//				categories[j].events.add(new Event(null, "Titulo " + i,
-//						"Endereço", "fone", "categoria", "Descricao", null, 1,
-//						-29.717171, -53.717171, 1, R.drawable.marker));
+		this.eventos = new ArrayList<Event>();
+		
+		this.eventos.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Livraria Cultura do Bourbon Country - Túlio de Rose, 80",-30.023695,-51.155904, "Autógrafos", "Autógrafos do livro A Menina Quebrada e Outras Colunas, de Eliane Brum. Entrada franca. ", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(new Date(2014, 03, 21),"Fabricio Carpinejar","16h","Livraria Saraiva do Praia de Belas - Praia de Belas, 1181",-30.050403,-51.228183, "Autógrafos", "Lançamento do livro 'Espero Alguém', de crônicas publicadas em ZH. Entrada franca.", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(new Date(2014, 03, 21),"Claudia Tajes","17h","Livraria FNAC do BarraShoppingSul - Diário de Notícias, 300",-30.084524,-51.245624, "Autógrafos", "Claudia Tajes lança seu novo livro: 'Por Isso sou Vingativa'. Entrada franca.", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(new Date(2014, 03, 21),"Cirque du Soleil","19h30min","BarraShoppingSul - Diário de Notícias, 300",-30.084524,-51.245624, "Exposições", "Corteo, espetáculo do Cirque du Soleil com palhaços, trapezistas e números de malabarismo. Ingressos: R$ 150.", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(new Date(2014, 03, 21),"Galinha Pintadinha","17h","Teatro do CIEE - Dom Pedro II, 861",-30.014075,-51.18728, "Infantil", "Espetáculo oficial da Galinha Pintadinha, com bonecos e fantoches, para crianças de zero a três anos. Ingressos: R$ 10 (crianças) e R$ 20 (adultos).", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(new Date(2014, 03, 21),"Balé Vera Bublitz","20h30min","Teatro da Amrigs - Ipiranga, 5311",-30.056753,-51.187127, "Dança", "Apresentação de balé clássico da escola Vera Bublitz. Ingressos à venda na escola por R$ 30.", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(new Date(2014, 03, 21),"Piquenique Festivo","Das 18h às 23h","Redenção",-30.035328,-51.213459, "Eventos", "Piquenique coletivo e gratuito para a comunidade da Capital. Leve sua comida e sua bebida. ", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(new Date(2014, 03, 21),"Claus e Vanessa","21h","NY 72 - Nova York, 72",-30.020689,-51.19537, "Música", "Show de pop rock com a dupla Claus e Vanessa. Ingressos: R$ 10.", R.drawable.elianebrum, 1, 1));
+		this.eventos.add(new Event(new Date(2014, 03, 21),"Incêndios","20h","Theatro São Pedro - Marechal Deodoro, s/n",-30.028975,-51.230478, "Teatro", "Espetáculo conta a história da árabe Nawal, cuja vida é atravessada por décadas de uma guerra civil que parece nunca ter fim. Ingressos: R$ 40 (galeria). ", R.drawable.elianebrum, 1, 1));
+//		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
+
+		mapController.setCenter(this.eventos.get(0).getGeoPoint());
+		popuparMapa(this.eventos);
+		
+		for (int i = 0; i < this.eventos.size(); i++) {
+			Event e = this.eventos.get(i);
+			if (e.category.equals("Autógrafos"))
+			{
+				autografos.events.add(e);
+			}
+			if (e.category.equals("Exposições"))
+			{
+				exposicao.events.add(e);
+			}
+			if (e.category.equals("Infantil"))
+			{
+				infantil.events.add(e);
+			}
+			if (e.category.equals("Dança"))
+			{
+				danca.events.add(e);
+			}
+			if (e.category.equals("Eventos"))
+			{
+				eventos.events.add(e);
+			}
+			if (e.category.equals("Teatro"))
+			{
+				teatro.events.add(e);
+			}
+			if (e.category.equals("Música"))
+			{
+				musica.events.add(e);
 			}
 		}
 
