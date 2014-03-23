@@ -265,6 +265,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 			vaMapa = ValueAnimator.ofInt(size.y, 300);
 			vaData = ValueAnimator.ofInt(0, dataLayoutH);
 		}
+		arrayAdapterCategories.positionDisplayCurrent = 0;
 		vaMapa.setDuration(1000);
 		vaData.setDuration(1000);
 
