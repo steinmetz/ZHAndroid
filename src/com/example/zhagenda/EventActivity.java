@@ -30,7 +30,7 @@ import android.widget.Toast;
 
 public class EventActivity extends Activity {
 
-	private TextView eventTxtTitle;
+	private TextView eventTxtTitle,categoryName;
 
 	private Event event;
 	private TextView eventDesc, eventHour, nroFriends;
@@ -48,6 +48,7 @@ public class EventActivity extends Activity {
 		event = (Event) it.getExtras().get("event");
 
 		eventTxtTitle = (TextView) findViewById(R.id.eventTxtTitle);
+		categoryName = (TextView) findViewById(R.id.categoryName);
 		eventDesc = (TextView) findViewById(R.id.eventDesc);
 		eventHour = (TextView) findViewById(R.id.eventHour);
 		eventImage = (ImageView) findViewById(R.id.eventImage);
@@ -66,7 +67,8 @@ public class EventActivity extends Activity {
 		eventTxtTitle.setText(event.title);
 		eventDesc.setText(Html.fromHtml(event.description));
 		eventHour.setText(Html.fromHtml(event.horario));
-//		eventImage
+		eventImage.setImageResource(event.imageRes);
+		categoryName.setText(event.category);
 		
 		loadComments();
 
@@ -108,7 +110,7 @@ public class EventActivity extends Activity {
 
 		ComentarioRepositorio rep = new ComentarioRepositorio(
 				EventActivity.this);
-		ArrayList<Comments> comments = rep.find(1);
+		ArrayList<Comments> comments = rep.find(event._id);
 		for (int i = 0; i < comments.size(); i++) {
 
 			View commentView = inflater.inflate(R.layout.commentlistitem, null);
@@ -155,7 +157,7 @@ public class EventActivity extends Activity {
 			ComentarioRepositorio rep = new ComentarioRepositorio(
 					EventActivity.this);
 			Comments comments = new Comments();
-			comments.event_id = 1;
+			comments.event_id = event._id;
 			comments.comment = commentText.getText().toString();
 			comments.photo = BitmapFactory.decodeResource(getResources(), R.drawable.euzinha);
 			

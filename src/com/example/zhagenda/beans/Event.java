@@ -40,13 +40,13 @@ public class Event implements Serializable{
 		return new GeoPoint((int)(latitude*1E6),(int)(longitude*1E6)  );
 	}
 	
-	public Event( Date date, String title, String horario, String address,
+	public Event( int id,Date date, String title, String horario, String address,
 			 double latitude, double longitude, String category, String description
 			 , int imageRes,
 			int order,
 			int destaque) {
 		super();
-		this._id = _id;
+		this._id = id;
 		this.date = date;
 		this.title = title;
 		this.horario = horario;
