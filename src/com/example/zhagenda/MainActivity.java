@@ -82,7 +82,6 @@ public class MainActivity extends MapActivity implements LocationListener {
 		diaSemana.setTypeface(face);
 
 		layoutEvent.setTranslationX(listViewCategories.getWidth());
-		populateListView();
 		dataLayoutH = dataLayout.getLayoutParams().height;
 
 		mapa.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +92,6 @@ public class MainActivity extends MapActivity implements LocationListener {
 			}
 		});
 
-		Intent i = getIntent();
 
 
 		map = (MapView) findViewById(R.id.map);
@@ -101,6 +99,8 @@ public class MainActivity extends MapActivity implements LocationListener {
 		mapOverlays = map.getOverlays();
 		map.setSatellite(false);
 		mapController.setZoom(17);
+
+		populateListView();
 
 		myloc = new MyLocationOverlay(this, map);
 		myloc.enableMyLocation();
@@ -171,7 +171,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 		this.eventos.add(new Event(new Date(2014, 03, 21),"Piquenique Festivo","Das 18h às 23h","Redenção",-30.035328,-51.213459, "Eventos", "Piquenique coletivo e gratuito para a comunidade da Capital. Leve sua comida e sua bebida. ", R.drawable.elianebrum, 1, 1));
 		this.eventos.add(new Event(new Date(2014, 03, 21),"Claus e Vanessa","21h","NY 72 - Nova York, 72",-30.020689,-51.19537, "Música", "Show de pop rock com a dupla Claus e Vanessa. Ingressos: R$ 10.", R.drawable.elianebrum, 1, 1));
 		this.eventos.add(new Event(new Date(2014, 03, 21),"Incêndios","20h","Theatro São Pedro - Marechal Deodoro, s/n",-30.028975,-51.230478, "Teatro", "Espetáculo conta a história da árabe Nawal, cuja vida é atravessada por décadas de uma guerra civil que parece nunca ter fim. Ingressos: R$ 40 (galeria). ", R.drawable.elianebrum, 1, 1));
-//		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
+		categories[0].events.add(new Event(new Date(2014, 03, 21),"Eliane Brum","19h","Endereco",-30.023695,-51.155904, "Autógrafos", "Desc", R.drawable.elianebrum, 1, 1));
 
 		mapController.setCenter(this.eventos.get(0).getGeoPoint());
 		popuparMapa(this.eventos);
