@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.zhagenda.beans.Event;
 import com.example.zhagenda.overlay.MyOverlay;
+import com.facebook.android.Facebook;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -60,6 +61,8 @@ public class ActivityMap extends MapActivity {
 		myloc.enableMyLocation();
 		myloc.disableCompass();
 		popuparMapa();
+		
+
 		
 	} 	
 	@Override
