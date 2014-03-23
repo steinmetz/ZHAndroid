@@ -14,7 +14,6 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
-
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -219,7 +218,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location arg0) {
-		mapController.setCenter(new GeoPoint((int) arg0.getLatitude(),
+		mapController.animateTo(new GeoPoint((int) arg0.getLatitude(),
 				(int) arg0.getLongitude()));
 	}
 

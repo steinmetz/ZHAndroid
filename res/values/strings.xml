@@ -6,5 +6,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_activity_mapa">Mapa</string>
     <string name="title_activity_event">EventActivity</string>
+    <string name="descEvent"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae enim felis. Fusce lobortis sem rhoncus scelerisque fermentum. Integer eget magna pulvinar, feugiat est sit amet, adipiscing ligula. Suspendisse sagittis auctor lectus, a gravida ipsum. Nulla non leo purus. In hac habitasse platea dictumst. Aliquam vel sapien eu tellus ullamcorper molestie. In aliquam, urna sodales tempor tempus, mauris felis gravida purus, at rhoncus risus ligula sit amet justo. Etiam molestie velit magna, vitae viverra tortor facilisis vitae. Nulla et lacinia sapien. Proin auctor fringilla feugiat. Duis non rutrum sapien.
+
+Proin lobortis bibendum nulla, at porttitor massa ornare vitae. Aenean sollicitudin ipsum justo, vel ullamcorper elit accumsan feugiat. Sed pellentesque elementum sollicitudin. Nam elementum dignissim metus non sagittis. Maecenas non erat tortor. Aenean et magna quis felis elementum ullamcorper. Nulla at porta sem, scelerisque mollis enim. Donec volutpat pellentesque scelerisque.
+
+Suspendisse ornare metus feugiat lectus sollicitudin, a fermentum neque ultricies. Mauris malesuada pellentesque mattis. Sed fringilla, est quis luctus facilisis, sapien nibh sodales ligula, ac porttitor nisi lorem vel elit. Sed venenatis, lacus sed sagittis ultricies, nibh metus tincidunt purus, ac tristique turpis lorem vel urna. Vivamus porttitor in metus sed pharetra. Sed luctus id felis ac porta. Donec nulla nisi, dictum ut elit quis, congue suscipit augue. </string>
 
 </resources>
