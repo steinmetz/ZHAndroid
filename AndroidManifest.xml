@@ -34,10 +34,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.zhagenda.ActivityMap"
-            android:label="@string/title_activity_activity_mapa" >
-        </activity>
-        <activity
             android:name="com.example.zhagenda.EventActivity"
             android:label="@string/title_activity_event" >
         </activity>

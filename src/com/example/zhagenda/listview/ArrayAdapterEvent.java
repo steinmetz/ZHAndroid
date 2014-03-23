@@ -5,6 +5,7 @@ import com.example.zhagenda.beans.Event;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,12 @@ public class ArrayAdapterEvent extends ArrayAdapter<Event> {
 			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
 			convertView = inflater.inflate(layoutView, parent, false);
 		}
+
+		if (position % 2 == 0)
+			convertView.setBackgroundColor(Color.rgb(241, 224, 181));
+		else
+			convertView.setBackgroundColor(Color.rgb(233, 203, 131));
+		
 		Event event = events[position];
 
 		TextView tvName = (TextView)convertView.findViewById(R.id.eventName);

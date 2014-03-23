@@ -11,7 +11,6 @@ import android.util.Log;
 
 import android.graphics.RectF;
 
-import com.example.zhagenda.ActivityMap;
 import com.example.zhagenda.EventActivity;
 import com.example.zhagenda.MainActivity;
 import com.example.zhagenda.beans.Event;

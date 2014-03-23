@@ -19,9 +19,7 @@ public class ComentarioRepositorio {
 
 	private String SQL_CREATE = "CREATE TABLE " + table + " ("
 			+ "_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-			+ "event_id INTEGER,"
-			+ "comment TEXT," 
-			+ "photo blob,"
+			+ "event_id INTEGER," + "comment TEXT," + "photo blob,"
 			+ "facebook_id INTEGER);";
 
 	private Context ctx;
@@ -46,33 +44,37 @@ public class ComentarioRepositorio {
 		cv.put("event_id", comments.event_id);
 		cv.put("photo", byteArray);
 		cv.put("facebook_id", comments.facebook_id);
-
-		return db.insert(table, null, cv);
+		long id = db.insert(table, null, cv);
+		db.close();
+		return id;
 
 	}
 
 	public ArrayList<Comments> find(int evento_id) {
-		
+
 		ArrayList<Comments> comments = new ArrayList<Comments>();
-		
-		byte[] bitmapdata ;
-		
-		Cursor c = db.query(table, null, "event_id = ?", new String[]{String.valueOf(evento_id)}, null, null, null, null);
-		
-		if(c.getCount() > 0){
+
+		byte[] bitmapdata;
+
+		Cursor c = db.query(table, null, "event_id = ?",
+				new String[] { String.valueOf(evento_id) }, null, null, null,
+				null);
+
+		if (c.getCount() > 0) {
 			c.moveToFirst();
-			Comments com = new Comments();
-			com._id = c.getInt(0);
-			com.event_id = c.getInt(1);
-			com.comment = c.getString(2);
-			bitmapdata = c.getBlob(3);
-			com.photo = BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata.length);			
-			com.facebook_id = c.getInt(4);
-			
-			comments.add(com);
-			
+			do {
+				Comments com = new Comments();
+				com._id = c.getInt(0);
+				com.event_id = c.getInt(1);
+				com.comment = c.getString(2);
+				bitmapdata = c.getBlob(3);
+				com.photo = BitmapFactory.decodeByteArray(bitmapdata, 0,
+						bitmapdata.length);
+				com.facebook_id = c.getInt(4);
+				comments.add(com);
+			} while (c.moveToNext());
+
 		}
-		
 
 		return comments;
 

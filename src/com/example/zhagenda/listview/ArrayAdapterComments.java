@@ -5,6 +5,7 @@ import com.example.zhagenda.beans.Comments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class ArrayAdapterComments extends ArrayAdapter<Comments> {
 		this.layoutView = resource;
 		this.comments = comments;
 		this.mContext = context;
+		
 	}
 
 	@Override
@@ -31,12 +33,14 @@ public class ArrayAdapterComments extends ArrayAdapter<Comments> {
 			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
 			convertView = inflater.inflate(layoutView, parent, false);
 		}
+		if (position % 2 == 0)
+			convertView.setBackgroundColor(Color.rgb(241, 224, 181));
+		else
+			convertView.setBackgroundColor(Color.rgb(233, 203, 131));
 		Comments comment = comments[position];
 
-		TextView tvName = (TextView)convertView.findViewById(R.id.commentName);
 		TextView tvComment = (TextView)convertView.findViewById(R.id.comment);
 
-		//tvName.setText(comment.name);
 		tvComment.setText(comment.comment);
 		
 		return convertView;

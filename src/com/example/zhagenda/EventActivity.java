@@ -2,9 +2,11 @@ package com.example.zhagenda;
 
 import java.io.File;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import com.example.zhagenda.beans.Comments;
 import com.example.zhagenda.beans.Event;
+import com.example.zhagenda.sqlite.ComentarioRepositorio;
 import com.example.zhagenda.utils.DownloadUtils;
 import com.google.android.maps.GeoPoint;
 
@@ -14,24 +16,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EventActivity extends Activity {
 
 	private TextView eventTxtTitle;
 
 	private Event event;
-	private WebView eventTxtDescription;
+	private TextView eventDesc, eventHour;
+	private EditText commentText;
+	private ImageView eventImage, sendComment;
 	private LinearLayout listViewComments;
-
 	private LinearLayout facebookContainer;
-
-	private String textWeb = "<img src='https://pbs.twimg.com/profile_images/2409354752/4e4wbg5xpzyt1qxez665.jpeg' /><strong>Teste</strong> <i>123</i>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae enim felis. Fusce lobortis sem rhoncus scelerisque fermentum. Integer eget magna pulvinar, feugiat est sit amet, adipiscing ligula. Suspendisse sagittis auctor lectus, a gravida ipsum. Nulla non leo purus. In hac habitasse platea dictumst. Aliquam vel sapien eu tellus ullamcorper molestie. In aliquam, urna sodales tempor tempus, mauris felis gravida purus, at rhoncus risus ligula sit amet justo. Etiam molestie velit magna, vitae viverra tortor facilisis vitae. Nulla et lacinia sapien. Proin auctor fringilla feugiat. Duis non rutrum sapien. ";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,46 +45,27 @@ public class EventActivity extends Activity {
 		setContentView(R.layout.activity_event);
 
 		Intent it = getIntent();
-		if (it.hasExtra("event")) {
-			event = (Event) it.getExtras().get("event");
-		} else {
-//			event = new Event(new Date(1), "Event Title",
-//					"Av. Ipiranga, nº 1000", "", "Exposição", null, "", 1,
-//					new GeoPoint(0, 0), 1);
-		}
+		event = (Event) it.getExtras().get("event");
 
 		eventTxtTitle = (TextView) findViewById(R.id.eventTxtTitle);
-		eventTxtDescription = (WebView) findViewById(R.id.eventTxtDescription);
+		eventDesc = (TextView) findViewById(R.id.eventDesc);
+		eventHour = (TextView) findViewById(R.id.eventHour);
+		eventImage = (ImageView) findViewById(R.id.eventImage);
 		listViewComments = (LinearLayout) findViewById(R.id.listViewComments);
 		facebookContainer = (LinearLayout) findViewById(R.id.facebookContainer);
+		sendComment = (ImageView) findViewById(R.id.sendComment);
+		commentText = (EditText) findViewById(R.id.commentText);
 
-		
-		
+		sendComment.setOnClickListener(l);
+
 		fillEvent();
 	}
 
 	public void fillEvent() {
 		eventTxtTitle.setText(event.title);
-		eventTxtDescription.loadData(event.description, "text/html", null);
+		eventDesc.setText(Html.fromHtml(event.description));
 		
-		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		Comments[] comments = new Comments[20];
-		for (int i = 0; i < 20; i++) {
-			comments[i] = new Comments();
-
-			View commentView = inflater.inflate(R.layout.commentlistitem, null);
-			TextView tvName = (TextView) commentView
-					.findViewById(R.id.commentName);
-			TextView tvComment = (TextView) commentView
-					.findViewById(R.id.comment);
-			ImageView imageView = (ImageView) commentView
-					.findViewById(R.id.eventIcon);
-			
-			//tvName.setText(comments[i].);
-			tvComment.setText(comments[i].comment);
-			listViewComments.addView(commentView);
-		}
+		loadComments();
 
 		new Thread(new Runnable() {
 
@@ -92,8 +79,7 @@ public class EventActivity extends Activity {
 					@Override
 					public void run() {
 						LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-						for (int i = 0; i < 5; i++) {
+						for (int i = 0; i < 0; i++) {
 							View inflated = inflater.inflate(
 									R.layout.image_item, null);
 							LinearLayout layout = (LinearLayout) inflated
@@ -109,6 +95,29 @@ public class EventActivity extends Activity {
 			}
 		}).start();
 
+	}
+	
+	public void loadComments()
+	{
+		listViewComments.removeAllViews();
+		
+		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+		ComentarioRepositorio rep = new ComentarioRepositorio(
+				EventActivity.this);
+		ArrayList<Comments> comments = rep.find(1);
+		for (int i = 0; i < comments.size(); i++) {
+
+			View commentView = inflater.inflate(R.layout.commentlistitem, null);
+			TextView tvComment = (TextView) commentView
+					.findViewById(R.id.comment);
+			ImageView imageView = (ImageView) commentView
+					.findViewById(R.id.commentIcon);
+			imageView.setImageBitmap(comments.get(i).photo);
+
+			tvComment.setText(comments.get(i).comment);
+			listViewComments.addView(commentView);
+		}
 	}
 
 	private String getFilenameForKey(String key) {
@@ -135,5 +144,22 @@ public class EventActivity extends Activity {
 
 		return null;
 	}
+
+	private OnClickListener l = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			ComentarioRepositorio rep = new ComentarioRepositorio(
+					EventActivity.this);
+			Comments comments = new Comments();
+			comments.event_id = 1;
+			comments.comment = commentText.getText().toString();
+			comments.photo = BitmapFactory.decodeResource(getResources(), R.drawable.euzinha);
+			
+			rep.insertComments(comments);
+
+			loadComments();
+		}
+	};
 
 }

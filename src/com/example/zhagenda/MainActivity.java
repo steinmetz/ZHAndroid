@@ -2,14 +2,14 @@ package com.example.zhagenda;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import com.example.zhagenda.beans.Comments;
+import com.example.zhagenda.beans.Category;
 import com.example.zhagenda.beans.Event;
 import com.example.zhagenda.listview.ArrayAdapterCategory;
 import com.example.zhagenda.listview.ArrayAdapterEvent;
-import com.example.zhagenda.listview.Category;
 import com.example.zhagenda.overlay.MyOverlay;
-import com.example.zhagenda.sqlite.ComentarioRepositorio;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -20,9 +20,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Menu;
@@ -32,12 +32,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends MapActivity implements LocationListener {
 
-	LinearLayout dataLayout;
-	ListView listView;
+	LinearLayout dataLayout, layoutEvent;
+	ListView listViewEvents, listViewCategories;
+	TextView currentCategoryTV;
 	RelativeLayout mapa;
 	int dataLayoutH;
 
@@ -53,14 +55,22 @@ public class MainActivity extends MapActivity implements LocationListener {
 	private MapView map;
 
 	MyLocationOverlay myloc;
+	Category[] categories = new Category[8];
+	Integer currentCategory = null;
+	ArrayAdapterCategory arrayAdapterCategories;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		dataLayout = (LinearLayout) findViewById(R.id.data);
-		listView = (ListView) findViewById(R.id.listViewEvents);
+		listViewCategories = (ListView) findViewById(R.id.listViewCategorias);
+		listViewEvents = (ListView) findViewById(R.id.listViewEvents);
+		layoutEvent = (LinearLayout) findViewById(R.id.layoutEvent);
 		mapa = (RelativeLayout) findViewById(R.id.mapa);
+		currentCategoryTV = (TextView) findViewById(R.id.currentCategory);
+
+		layoutEvent.setTranslationX(listViewCategories.getWidth());
 		populateListView();
 		dataLayoutH = dataLayout.getLayoutParams().height;
 
@@ -80,17 +90,10 @@ public class MainActivity extends MapActivity implements LocationListener {
 				"descricao", null, 1,-29.717171,-53.717171,1,
 				R.drawable.marker));
 
-		if (i.hasExtra("evetos")) {
-			this.eventos = (ArrayList<Event>) i.getExtras().get("eventos");
-		} else {
-			Toast.makeText(getApplicationContext(),
-					"Não há eventos para mostrar", Toast.LENGTH_SHORT).show();
-		}
-
 		map = (MapView) findViewById(R.id.map);
 		mapController = map.getController();
 		mapOverlays = map.getOverlays();
-		map.setSatellite(true);
+		map.setSatellite(false);
 		mapController.setZoom(17);
 		mapController.setCenter(eventos.get(0).getGeoPoint());
 
@@ -104,10 +107,10 @@ public class MainActivity extends MapActivity implements LocationListener {
 		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER,
 				milisegundos, metros, this);
 
-		popuparMapa(); 	
+		popuparMapa(eventos);
 	}
 
-	public void popuparMapa() {
+	public void popuparMapa(ArrayList<Event> eventos) {
 
 		if (eventos == null || eventos.size() < 1) {
 			Toast.makeText(getApplicationContext(), "Sem eventos",
@@ -128,15 +131,15 @@ public class MainActivity extends MapActivity implements LocationListener {
 	}
 
 	public void populateListView() {
-		Category[] categories = new Category[8];
-		Category autografos = new Category("Autógrafos");
-		Category exposicao = new Category("Exposições");
-		Category infantil = new Category("Infantil");
-		Category danca = new Category("Dança");
-		Category eventos = new Category("Eventos");
-		Category musica = new Category("Música");
-		Category cinema = new Category("Cinema");
-		Category teatro = new Category("Teatro");
+
+		Category autografos = new Category("Autógrafos", R.drawable.autografos);
+		Category exposicao = new Category("Exposições", R.drawable.exposicoes);
+		Category infantil = new Category("Infantil", R.drawable.infantil);
+		Category danca = new Category("Dança", R.drawable.danca);
+		Category eventos = new Category("Eventos", R.drawable.eventos);
+		Category musica = new Category("Música", R.drawable.musica);
+		Category cinema = new Category("Cinema", R.drawable.cinema);
+		Category teatro = new Category("Teatro", R.drawable.teatro);
 
 		categories[0] = autografos;
 		categories[1] = exposicao;
@@ -148,31 +151,56 @@ public class MainActivity extends MapActivity implements LocationListener {
 		categories[7] = teatro;
 
 		for (int j = 0; j < 8; j++) {
-			categories[j].events = new Event[20];
 			for (int i = 0; i < 20; i++) {
-				categories[j].events[i] = new Event(null, "Titulo", "Endereço", "fone", "categoria",
-						"descricao", null, 1,-29.717171,-53.717171,1,
-						R.drawable.marker);
+				categories[j].events.add(new Event(null, "Titulo " + i,
+						"Endereço", "fone", "categoria", "Descricao", null, 1,
+						-29.717171,-53.717171,1, R.drawable.marker));
 			}
 		}
 
-		ArrayAdapterCategory arrayAdapterCategories = new ArrayAdapterCategory(
+		arrayAdapterCategories = new ArrayAdapterCategory(
 				this, R.layout.categorylistitem, categories);
-		// ArrayAdapterEvent arrayAdapterEvents = new ArrayAdapterEvent(this,
-		// R.layout.eventlistitem, events);
-		listView.setAdapter(arrayAdapterCategories);
-		listView.setOnItemClickListener(l);
+		listViewCategories.setAdapter(arrayAdapterCategories);
+		listViewCategories.setOnItemClickListener(listenerCategories);
+
+		mHandler.postDelayed(r, 4000);
 	}
 
-	private OnItemClickListener l = new OnItemClickListener() {
+	private OnItemClickListener listenerCategories = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			// Abrir o fragment da categoria
-			Toast.makeText(MainActivity.this, "Abrir o fragment da categoria",
-					Toast.LENGTH_LONG).show();
+			currentCategory = position;
+			Event[] events = new Event[categories[currentCategory].events
+					.size()];
+			for (int i = 0; i < categories[currentCategory].events.size(); i++) {
+				events[i] = categories[currentCategory].events.get(i);
+			}
+			ArrayAdapterEvent arrayAdapterEvents = new ArrayAdapterEvent(
+					MainActivity.this, R.layout.eventlistitem, events);
+			currentCategoryTV.setText(categories[currentCategory].name);
+			listViewEvents.setAdapter(arrayAdapterEvents);
+			listViewEvents.setOnItemClickListener(listenerEvents);
+			listViewCategories.animate().translationX(
+					-listViewCategories.getWidth());
+			layoutEvent.setVisibility(View.VISIBLE);
+			layoutEvent.setTranslationX(listViewCategories.getWidth());
+			layoutEvent.animate().translationX(0);
+			popuparMapa(categories[currentCategory].events);
 
+		}
+	};
+
+	private OnItemClickListener listenerEvents = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			Intent it = new Intent(MainActivity.this, EventActivity.class);
+			it.putExtra("event",
+					categories[currentCategory].events.get(position));
+			startActivity(it);
 		}
 	};
 
@@ -222,8 +250,8 @@ public class MainActivity extends MapActivity implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location arg0) {
-		mapController.animateTo(new GeoPoint((int) (arg0.getLatitude()*1E6),
-				(int) (arg0.getLongitude()*1E6))); 
+		mapController.animateTo(new GeoPoint((int) (arg0.getLatitude() * 1E6),
+				(int) (arg0.getLongitude() * 1E6)));
 	}
 
 	@Override
@@ -244,4 +272,54 @@ public class MainActivity extends MapActivity implements LocationListener {
 
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (currentCategory == null)
+			super.onBackPressed();
+		else {
+			currentCategory = null;
+			listViewCategories.animate().translationX(0);
+			layoutEvent.animate().translationX(listViewCategories.getWidth());
+		}
+	}
+
+	Handler mHandler = new Handler();
+	Runnable r = new Runnable() {
+
+		@Override
+		public void run() {
+			Point size = new Point();
+			getWindowManager().getDefaultDisplay().getSize(size);
+			arrayAdapterCategories.positionDisplayCurrent++;
+			for (int i = 0; i < listViewCategories.getChildCount(); i++) {
+				View v = listViewCategories.getChildAt(i);
+
+				int index = arrayAdapterCategories.positionDisplayCurrent
+						% categories[i].events.size();
+
+				TextView tvSpotlight = (TextView) v
+						.findViewById(R.id.categorySpotlight);
+				TextView tvSpotlightExtra = (TextView) v
+						.findViewById(R.id.categorySpotlightExtra);
+
+				if (tvSpotlight.getTranslationX() == 0) {
+					tvSpotlightExtra.setTranslationX(size.x);
+					tvSpotlightExtra
+							.setText(categories[i].events.get(index).title);
+					Event e = categories[i].events.get(index);
+					tvSpotlightExtra.animate().setDuration(1000).translationX(0);
+					tvSpotlight.animate().setDuration(1000).translationX(-size.x);
+				} else {
+					tvSpotlight.setTranslationX(size.x);
+					tvSpotlight.setText(categories[i].events.get(index).title);
+					tvSpotlight.animate().setDuration(1000).translationX(0);
+					tvSpotlightExtra.animate().setDuration(1000).translationX(
+							-size.x);
+				}
+
+			}
+
+			mHandler.postDelayed(r, 5000);
+		}
+	};
 }
