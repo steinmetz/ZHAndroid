@@ -344,8 +344,9 @@ public class MainActivity extends MapActivity implements LocationListener {
 			for (int i = 0; i < listViewCategories.getChildCount(); i++) {
 				View v = listViewCategories.getChildAt(i);
 
-				int index = arrayAdapterCategories.positionDisplayCurrent
+				arrayAdapterCategories.positionDisplayCurrent = arrayAdapterCategories.positionDisplayCurrent
 						% categories[i].events.size();
+				int index = arrayAdapterCategories.positionDisplayCurrent;
 
 				TextView tvSpotlight = (TextView) v
 						.findViewById(R.id.categorySpotlight);
