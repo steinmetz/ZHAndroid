@@ -42,9 +42,9 @@ public class EventActivity extends Activity {
 		if (it.hasExtra("event")) {
 			event = (Event) it.getExtras().get("event");
 		} else {
-			event = new Event(new Date(1), "Event Title",
-					"Av. Ipiranga, nº 1000", "", "Exposição", textWeb, "", 1,
-					new GeoPoint(0, 0), 1);
+//			event = new Event(new Date(1), "Event Title",
+//					"Av. Ipiranga, nº 1000", "", "Exposição", null, "", 1,
+//					new GeoPoint(0, 0), 1);
 		}
 
 		eventTxtTitle = (TextView) findViewById(R.id.eventTxtTitle);

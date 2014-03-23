@@ -77,7 +77,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 		// apagar
 		eventos = new ArrayList<Event>();
 		eventos.add(new Event(null, "Titulo", "Endereço", "fone", "categoria",
-				"descricao", "asdf", 1, new GeoPoint(-29717171, -53717171),
+				"descricao", null, 1,-29.717171,-53.717171,1,
 				R.drawable.marker));
 
 		if (i.hasExtra("evetos")) {
@@ -92,7 +92,7 @@ public class MainActivity extends MapActivity implements LocationListener {
 		mapOverlays = map.getOverlays();
 		map.setSatellite(true);
 		mapController.setZoom(17);
-		mapController.setCenter(eventos.get(0).geoPoint);
+		mapController.setCenter(eventos.get(0).getGeoPoint());
 
 		myloc = new MyLocationOverlay(this, map);
 		myloc.enableMyLocation();
@@ -150,9 +150,9 @@ public class MainActivity extends MapActivity implements LocationListener {
 		for (int j = 0; j < 8; j++) {
 			categories[j].events = new Event[20];
 			for (int i = 0; i < 20; i++) {
-				categories[j].events[i] = new Event(null, "Titulo", "Endereço",
-						"fone", "categoria", "descricao", "asdf", 1,
-						new GeoPoint(-29717171, -53717171), R.drawable.marker);
+				categories[j].events[i] = new Event(null, "Titulo", "Endereço", "fone", "categoria",
+						"descricao", null, 1,-29.717171,-53.717171,1,
+						R.drawable.marker);
 			}
 		}
 

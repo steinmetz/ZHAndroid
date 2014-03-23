@@ -40,7 +40,7 @@ public class MyOverlay extends Overlay {
 	@Override
 	public boolean onTap(GeoPoint geoPoint, MapView mapView) {
 		int tamanho_point = 40;
-		point = mapView.getProjection().toPixels(event.geoPoint, null);
+		point = mapView.getProjection().toPixels(event.getGeoPoint(), null);
 		rectf = new RectF(point.x - tamanho_point, point.y - tamanho_point,
 				point.x + tamanho_point, point.y + tamanho_point);
 		Point clique = mapView.getProjection().toPixels(geoPoint, null);
@@ -59,7 +59,7 @@ public class MyOverlay extends Overlay {
 	@Override
 	public void draw(Canvas canvas, MapView mapview, boolean shadow) {
 		if (shadow) {
-			mapview.getProjection().toPixels(event.geoPoint, point);
+			mapview.getProjection().toPixels(event.getGeoPoint(), point);
 
 			Bitmap markerBitmap = BitmapFactory.decodeResource(ctx
 					.getApplicationContext().getResources(), event.imageRes);

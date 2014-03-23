@@ -39,9 +39,9 @@ public class ActivityMap extends MapActivity {
 
 		// apagar
 		eventos = new ArrayList<Event>();
-		eventos.add(new Event(null, "Titulo", "Endereço", "fone", "categoria",
-				"descricao", "asdf", 1, new GeoPoint(-29717171, -53717171),
-				R.drawable.marker));
+//		eventos.add(new Event(null, "Titulo", "Endereço", "fone", "categoria",
+//				"descricao", null, 1, new GeoPoint(-29717171, -53717171),
+//				R.drawable.marker));
 
 		if (i.hasExtra("evetos")) {
 			this.eventos = (ArrayList<Event>) i.getExtras().get("eventos");
@@ -56,7 +56,7 @@ public class ActivityMap extends MapActivity {
 		map.setSatellite(true);
 		mapController.setZoom(17);
 		map.setBuiltInZoomControls(false);
-		mapController.setCenter(eventos.get(0).geoPoint);
+		mapController.setCenter(eventos.get(0).getGeoPoint());
 		myloc = new MyLocationOverlay(this, map);
 		myloc.enableMyLocation();
 		myloc.disableCompass();
