@@ -47,6 +47,7 @@ public class MyOverlay extends Overlay {
 
 			Intent i = new Intent(ctx, EventActivity.class);
 			i.putExtra("event", event);
+			
 			ctx.startActivity(i);
 					
 		}else {			

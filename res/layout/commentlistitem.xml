@@ -20,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:text="This is a shit!"
-        android:textColor="#888" />
+        android:textColor="#6f716e" />
 
 </LinearLayout>

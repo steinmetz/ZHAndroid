@@ -20,7 +20,7 @@
             <LinearLayout
                 android:id="@+id/data"
                 android:layout_width="match_parent"
-                android:layout_height="65dip"
+                android:layout_height="70dip"
                 android:orientation="vertical" >
 
                 <TextView
@@ -33,7 +33,7 @@
                     android:textSize="25dip" />
 
                 <TextView
-                    android:id="@+id/diaMes"
+                    android:id="@+id/diaSemanaMes1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -56,22 +56,23 @@
                     android:id="@+id/categoryName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Categoria" />
+                    android:text="Categoria"
+                    android:textColor="#000" />
 
                 <TextView
                     android:id="@+id/eventTxtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#f1e0b5"
                     android:text="Eliane Brum"
+                    android:textColor="#000"
                     android:textSize="25dip" />
 
                 <TextView
                     android:id="@+id/eventEndereco"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#f1e0b5"
                     android:text="Livraria Cultura - Av. Tulio de Rose, 80"
+                    android:textColor="#000"
                     android:textSize="15dip" />
             </LinearLayout>
 
@@ -96,7 +97,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|center_horizontal"
-                    android:text="19h" />
+                    android:text="19h"
+                    android:textColor="#000" />
             </LinearLayout>
 
             <TextView
@@ -108,7 +110,8 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                android:text="Autógrafos do livro A Menina Quebrada e Outras Colunas, de Eliane Brum. Entrada Franca" />
+                android:text="Autógrafos do livro A Menina Quebrada e Outras Colunas, de Eliane Brum. Entrada Franca"
+                android:textColor="#000" />
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView1"
@@ -190,7 +193,8 @@
                 android:paddingBottom="5dip"
                 android:paddingLeft="5dip"
                 android:paddingRight="5dip"
-                android:text="5 amigos curtiram isso." />
+                android:text="5 amigos curtiram isso."
+                android:textColor="#000" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -209,6 +213,7 @@
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin"
                     android:text="comentários"
+                    android:textColor="#000"
                     android:textSize="20dip" />
 
                 <LinearLayout
@@ -249,6 +254,7 @@
                         android:id="@+id/sendComment"
                         android:layout_width="30dip"
                         android:layout_height="30dip"
+                        android:layout_gravity="center|center_vertical"
                         android:src="@drawable/send" />
                 </LinearLayout>
             </LinearLayout>

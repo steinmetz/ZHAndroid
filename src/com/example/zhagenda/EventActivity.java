@@ -35,7 +35,7 @@ public class EventActivity extends Activity {
 	private TextView eventTxtTitle,categoryName;
 
 	private Event event;
-	private TextView eventDesc, eventHour, nroFriends;
+	private TextView eventDesc, eventHour, nroFriends, diaMes, diaSemanaMes1;
 	private EditText commentText;
 	private ImageView eventImage, sendComment;
 	private LinearLayout listViewComments;
@@ -64,6 +64,8 @@ public class EventActivity extends Activity {
 		facebookContainer = (LinearLayout) findViewById(R.id.facebookContainer);
 		sendComment = (ImageView) findViewById(R.id.sendComment);
 		commentText = (EditText) findViewById(R.id.commentText);
+		diaMes = (TextView) findViewById(R.id.diaMes);
+		diaSemanaMes1 = (TextView) findViewById(R.id.diaSemanaMes1);
 		nroFriends = (TextView) findViewById(R.id.nroFriends);
 
 		sendComment.setOnClickListener(l);
@@ -74,6 +76,8 @@ public class EventActivity extends Activity {
 	public void fillEvent() {
 		eventTxtTitle.setText(event.title);
 		eventDesc.setText(Html.fromHtml(event.description));
+		diaMes.setText(event.getDiaMes());
+		diaSemanaMes1.setText(event.getDiaSemana());
 		eventHour.setText(Html.fromHtml(event.horario));
 		eventImage.setImageResource(event.imageRes);
 		categoryName.setText(event.category);

@@ -86,7 +86,8 @@ public class Event implements Serializable{
 
 	public String  getDiaSemana()
 	{
-		Calendar data = new GregorianCalendar(date.getYear(), Calendar.MARCH, date.getDay());
+
+		Calendar data = new GregorianCalendar(2014, Calendar.MARCH, 23);
 		String dias[] = {"Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"};
 		String meses[] = {"jan","fev","mar","abr","mai","jun","jul","ago","set", "out","nov","dez"};
 		int week = data.get(Calendar.DAY_OF_WEEK) - 1;
@@ -96,13 +97,12 @@ public class Event implements Serializable{
 
 	public String  getDiaMes()
 	{
-		Calendar data = Calendar.getInstance();
-		data.setTime(date);
+		Calendar data = new GregorianCalendar(2014, Calendar.MARCH, 23);
 		String dias[] = {"Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"};
-		String meses[] = {"Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set", "Out","Nov","Dez"};
+		String meses[] = {"jan","fev","mar","abr","mai","jun","jul","ago","set", "out","nov","dez"};
 		int week = data.get(Calendar.DAY_OF_WEEK);
 		int month = data.get(Calendar.MONTH);
-		return String.valueOf(date.getDay()) + " - "+ meses[month];
+		return String.valueOf(23) + " - "+ meses[month];
 	}
 
 	
